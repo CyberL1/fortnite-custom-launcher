@@ -16,9 +16,9 @@ using IHost host = builder.Build();
 
 await host.StartAsync();
 
-void menu()
+void menu(bool clear = true)
 {
-    Console.Clear();
+    if (clear) Console.Clear();
 
     Console.WriteLine("Select an option\n");
 
@@ -28,11 +28,19 @@ void menu()
 
     var option = Console.ReadLine();
 
+    string exePath = "FortniteGame/Binaries/Win64/FortniteClient-Win64-Shipping.exe";
+    string fullPath = $"{config.Path}/${exePath}";
+
     switch (option)
     {
         case "1":
-            Console.WriteLine($"Path: {config.Path}");
-            Process.Start("cmd.exe", $"/c start {config.Path}/FortniteGame/Binaries/Win64/FortniteClient-Win64-Shipping.exe -epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -nobe -fromfl=eac -fltoken=24963ce04b575a5ca65526h0 -skippatchcheck -AUTH_LOGIN={config.Login} -AUTH_PASSWORD={config.Password} -AUTH_TYPE=epic");
+            if (!File.Exists(fullPath))
+            {
+                Console.WriteLine("Cannot find the executable, is game path correct?");
+                menu(false);
+                return;
+            }
+            Process.Start("cmd.exe", $"/c start {fullPath} -epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -nobe -fromfl=eac -fltoken=24963ce04b575a5ca65526h0 -skippatchcheck -AUTH_LOGIN={config.Login} -AUTH_PASSWORD={config.Password} -AUTH_TYPE=epic");
             break;
         case "2":
             Console.Write("Enter new game path: ");
