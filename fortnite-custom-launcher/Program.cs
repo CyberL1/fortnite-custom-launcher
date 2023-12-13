@@ -29,7 +29,7 @@ void menu(bool clear = true)
     var option = Console.ReadLine();
 
     string exePath = "FortniteGame/Binaries/Win64/FortniteClient-Win64-Shipping.exe";
-    string fullPath = $"{config.Path}/${exePath}";
+    string fullPath = $"{config.Path}/{exePath}";
 
     switch (option)
     {
