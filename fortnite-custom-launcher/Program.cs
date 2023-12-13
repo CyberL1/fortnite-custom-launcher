@@ -40,7 +40,14 @@ void menu(bool clear = true)
                 menu(false);
                 return;
             }
-            Process.Start("cmd.exe", $"/c start {fullPath} -epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -nobe -fromfl=eac -fltoken=24963ce04b575a5ca65526h0 -skippatchcheck -AUTH_LOGIN={config.Login} -AUTH_PASSWORD={config.Password} -AUTH_TYPE=epic");
+
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            processStartInfo.FileName = fullPath;
+            processStartInfo.Arguments = $"-epicapp=Fortnite -epicenv=Prod -epiclocale=en-us -epicportal -nobe -fromfl=eac -fltoken=24963ce04b575a5ca65526h0 -skippatchcheck -AUTH_LOGIN={config.Login} -AUTH_PASSWORD={config.Password} -AUTH_TYPE=epic";
+
+            Process process = new Process();
+            process.StartInfo = processStartInfo;
+            process.Start();
             break;
         case "2":
             Console.Write("Enter new game path: ");
