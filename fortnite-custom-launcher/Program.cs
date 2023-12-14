@@ -48,7 +48,21 @@ void menu(bool clear = true)
             Process process = new Process();
             process.StartInfo = processStartInfo;
             process.Start();
-            break;
+
+            Console.WriteLine("Press C to kill the game process");
+
+            while (true)
+            {
+                ConsoleKeyInfo cki = Console.ReadKey(true);
+
+                if (cki.Key == ConsoleKey.C)
+                {
+                    process.Kill();
+                    menu();
+                    break;
+                }
+            };
+           break;
         case "2":
             Console.Write("Enter new game path: ");
             config.Path = Console.ReadLine();
